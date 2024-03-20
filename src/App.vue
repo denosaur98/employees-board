@@ -3,7 +3,6 @@
     <v-main class="home__page">
       <EmployeeList/>
       <EmployeeFilters/>
-      <BaseDropdown/>
     </v-main>
   </v-app>
 </template>
@@ -11,7 +10,6 @@
 <script setup>
 import EmployeeList from './components/EmployeeList.vue';
 import EmployeeFilters from './components/EmployeeFilters.vue';
-import BaseDropdown from './components/base/BaseDropdown.vue'
 </script>
 
 <style lang="scss" scoped>

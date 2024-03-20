@@ -32,3 +32,14 @@
 ::-webkit-scrollbar-thumb:hover {
   background-color: var(--scrollbar-thumb);
 }
+
+.v-selection-control--density-default {
+  --v-selection-control-size: initial !important;
+}
+.v-selection-control__wrapper {
+  margin-right: 5px !important;
+}
+.v-input--density-default {
+  --v-input-control-height: 0;
+  --v-input-padding-top: 0;
+}

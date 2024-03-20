@@ -8,63 +8,30 @@
       <div class="list__dropdown">
         <div class="dropdown__item">
           <h1 class="item__title">Гражданство</h1>
-          <div class="item__dropdown" @click="toggleDropDown('nationality')">
-            <p>{{ store.state.nationalitySelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isNationalityOpen">
-            <li class="point" v-for="nationality in store.state.countryData" :key="nationality" @click="toggleDropDownSelected('nationality', nationality)">{{ nationality }}</li>
-          </ul>
+          <v-autocomplete label="Все страны" :items="store.state.countryData" variant="solo" density="comfortable"
+            v-model="store.state.nationalitySelected" />
         </div>
         <div class="dropdown__item">
           <h1 class="item__title">Пол</h1>
-          <div class="item__dropdown" @click="toggleDropDown('gender')">
-            <p>{{ store.state.genderSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isGenderOpen">
-            <li class="point" v-for="gender in store.state.genderData" :key="gender" @click="toggleDropDownSelected('gender', gender)">{{ gender }}</li>
-          </ul>
+          <v-autocomplete label="Без разницы" :items="store.state.genderData" variant="solo" density="comfortable"
+            v-model="store.state.genderSelected" />
         </div>
       </div>
       <div class="list__dropdown">
         <div class="dropdown__item" style="width: 100%;">
           <h1 class="item__title">Должность</h1>
-          <div class="item__dropdown" @click="toggleDropDown('position')">
-            <p>{{ store.state.positionSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isPositionOpen" style="width: 527px;">
-            <li class="point" v-for="position in store.state.positionData" :key="position" @click="toggleDropDownSelected('position', position)">{{ position }}</li>
-          </ul>
+          <v-autocomplete label="Все должности " :items="store.state.positionData" variant="solo" density="comfortable"
+            v-model="store.state.positionSelected" />
         </div>
       </div>
       <div class="list__dropdown">
         <div class="dropdown__item" style="width: 100%;">
           <h1 class="item__title">Тип договора</h1>
           <div class="item__checkbox">
-            <div class="checkbox" @click="toggleCheckbox('td')">
-              <img src="../assets/images/arrow.svg" class="checkbox__arrow" v-if="tdChecked">
-            </div>
-            <p>ТД</p>
-          </div>
-          <div class="item__checkbox">
-            <div class="checkbox" @click="toggleCheckbox('gph')">
-              <img src="../assets/images/arrow.svg" class="checkbox__arrow" v-if="gphChecked">
-            </div>
-            <p>ГПХ</p>
-          </div>
-          <div class="item__checkbox">
-            <div class="checkbox" @click="toggleCheckbox('smz')">
-              <img src="../assets/images/arrow.svg" class="checkbox__arrow" v-if="smzChecked">
-            </div>
-            <p>СМЗ</p>
-          </div>
-          <div class="item__checkbox">
-            <div class="checkbox" @click="toggleCheckbox('candidate')">
-              <img src="../assets/images/arrow.svg" class="checkbox__arrow" v-if="candidateChecked">
-            </div>
-            <p>Кандидат</p>
+            <v-checkbox label="ТД" v-model="store.state.tdChecked" />
+            <v-checkbox label="ГПХ" v-model="store.state.gphChecked" />
+            <v-checkbox label="СМЗ" v-model="store.state.smzChecked" />
+            <v-checkbox label="Кандидат" v-model="store.state.candidateChecked" />
           </div>
         </div>
       </div>
@@ -73,68 +40,13 @@
         <button class="button__btn button__clear" @click="clearFilters">Очистить</button>
       </div>
     </div>
-    <EmployeeModal v-if="store.state.isModalOpen"/>
+    <EmployeeModal v-if="store.state.isModalOpen" />
   </div>
 </template>
 
 <script setup>
-import { ref, computed } from 'vue';
 import EmployeeModal from './EmployeeModal.vue';
 import store from './../store/index';
-
-const isNationalityOpen = ref(false)
-const isGenderOpen = ref(false)
-const isPositionOpen = ref(false)
-function toggleDropDown(dropdown) {
-  if(dropdown === 'nationality') {
-    isNationalityOpen.value = !isNationalityOpen.value
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-  } else if(dropdown === 'gender') {
-    isGenderOpen.value = !isGenderOpen.value
-    isNationalityOpen.value = false
-    isPositionOpen.value = false
-  } else {
-    isPositionOpen.value = !isPositionOpen.value
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-  }
-}
-function closeDropdowns(e) {
-  if(!e.target.closest('.dropdown__item')) {
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-  }
-}
-
-function toggleDropDownSelected(dropdown, value) {
-  if(dropdown === 'nationality') {
-    store.commit('SET_NATIONALITY_SELECTED', value)
-    isNationalityOpen.value = false
-  } else if(dropdown === 'gender') {
-    store.commit('SET_GENDER_SELECTED', value)
-    isGenderOpen.value = false
-  } else if(dropdown === 'position') {
-    store.commit('SET_POSITION_SELECTED', value)
-    isPositionOpen.value = false
-  }
-}
-const tdChecked = computed(() => store.state.tdChecked)
-const gphChecked = computed(() => store.state.gphChecked)
-const smzChecked = computed(() => store.state.smzChecked)
-const candidateChecked = computed(() => store.state.candidateChecked)
-function toggleCheckbox(checkbox) {
-  if(checkbox === 'td') {
-    store.commit('SET_TD_CHECKED', !tdChecked.value)
-  } else if(checkbox === 'gph') {
-    store.commit('SET_GPH_CHECKED', !gphChecked.value)
-  } else if(checkbox === 'smz') {
-    store.commit('SET_SMZ_CHECKED', !smzChecked.value)
-  } else {
-    store.commit('SET_CANDIDATE_CHECKED', !candidateChecked.value)
-  }
-}
 
 function filterEmployees() {
   store.dispatch('filterEmployees')
@@ -154,7 +66,7 @@ function openModal() {
   background: #fff;
   border-radius: 10px;
   width: 587px;
-  height: 100%;
+  height: 785px;
 
   .filters__add {
     display: flex;
@@ -207,6 +119,7 @@ function openModal() {
         flex-direction: column;
         justify-content: flex-start;
         width: 254px;
+        gap: 10px;
 
         .item__title {
           font-family: 'MontserratBold';
@@ -216,83 +129,13 @@ function openModal() {
           line-height: 120%;
         }
 
-        .item__dropdown {
-          cursor: pointer;
-          display: flex;
-          align-items: center;
-          justify-content: space-between;
-          width: 100%;
-          padding: 12px 16px;
-          border: none;
-          border-radius: 4px;
-          background: rgb(232, 241, 244);
-          margin-top: 10px;
-
-          p {
-            color: rgb(132, 144, 155);
-            font-size: 15px;
-            font-weight: 400;
-            line-height: 120%;
-          }
-
-          .dropdown__arrow {
-            width: 10px;
-            height: 10px;
-          }
-        }
-
-        .dropdown__points {
-          display: flex;
-          flex-direction: column;
-          width: 254px;
-          box-shadow: 1px 1px 10px 1px rgb(132, 144, 155);
-          background: #fff;
-          position: absolute;
-          list-style-type: none;
-          min-height: 29px;
-          margin-top: 75px;
-          border-radius: 5px;
-          overflow: hidden;
-
-          .point {
-            cursor: pointer;
-            width: 100%;
-            padding: 5px;
-
-            &:hover {
-              background: rgb(232, 241, 244);
-            }
-          }
-        }
-
         .item__checkbox {
           display: flex;
-          align-items: center;
-          gap: 10px;
-          margin-top: 10px;
-
-          .checkbox {
-            cursor: pointer;
-            display: flex;
-            justify-content: center;
-            align-items: center;
-            width: 20px;
-            height: 20px;
-            border: 1px solid rgb(220, 220, 220);
-            border-radius: 4px;
-            background: rgb(255, 255, 255);
-
-            .checkbox__arrow {
-              width: 70%;
-              height: 70%;
-            }
-          }
+          flex-direction: column;
+          align-items: flex-start;
+          border-bottom: 1px solid rgb(219, 228, 237);
+          padding-bottom: 20px;
         }
-      }
-
-      &:last-child {
-        border-bottom: 1px solid rgb(219, 228, 237);
-        padding-bottom: 20px;
       }
     }
 
