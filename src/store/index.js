@@ -166,6 +166,9 @@ const store = createStore({
       nationalitySelected: null,
       genderSelected: null,
       positionSelected: null,
+
+      countrySelected: null,
+
       tdChecked: false,
       gphChecked: false,
       smzChecked: false,
@@ -192,6 +195,9 @@ const store = createStore({
     },
     SET_NATIONALITY_SELECTED(state, payload) {
       state.nationalitySelected = payload;
+    },
+    SET_COUNTRY_SELECTED(state, payload) {
+      state.countrySelected = payload;
     },
     SET_GENDER_SELECTED(state, payload) {
       state.genderSelected = payload;

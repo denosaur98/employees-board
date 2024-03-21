@@ -3,92 +3,64 @@
     <div class="modal__form">
       <div class="form__item">
         <h1 class="item__title">Фио</h1>
-        <input class="item__input" placeholder="Введите фамилию:" v-model="userSurname">
+        <v-text-field v-model="userSurname" :rules="nameRules" label="Фамилия" variant="solo" density="comfortable"/>
         <div class="form__short">
           <div class="form__item">
-            <input class="item__input" placeholder="Введите имя:" v-model="userName">
+            <v-text-field v-model="userName" :rules="nameRules" label="Имя" variant="solo" density="comfortable"/>
           </div>
           <div class="form__item">
-            <input class="item__input" placeholder="Введите отчество:" v-model="userPatronymic">
+            <v-text-field v-model="userPatronymic" :rules="nameRules" label="Отчество" variant="solo"
+              density="comfortable"/>
           </div>
         </div>
       </div>
       <div class="form__item">
         <h1 class="item__title">Дата рождения</h1>
-        <input class="item__input short" ref="dateInput" placeholder="Введите дату:" @input="updateDateBirth"/>
+        <input class="item__input short" ref="dateInput" placeholder="Введите дату:" @input="updateDateBirth" />
       </div>
       <div class="form__short">
         <div class="form__item">
           <h1 class="item__title">Гражданство</h1>
-          <div class="item__dropdown" @click="toggleDropDown('nationality')">
-            <p>{{ nationalitySelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isNationalityOpen">
-            <li class="point" v-for="country in store.state.countryData" @click="selectedPoints('nationality', country)">{{ country }}</li>
-          </ul>
+          <v-autocomplete label="Все страны" :items="store.state.countryData" variant="solo" density="comfortable"
+            v-model="nationalitySelected"/>
         </div>
         <div class="form__item">
           <h1 class="item__title">Город</h1>
-          <div class="item__dropdown" @click="toggleDropDown('address')">
-            <p>{{ addressSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isAddressOpen">
-            <li class="point" v-for="address in store.state.addressData" @click="selectedPoints('address', address)">{{ address }}</li>
-          </ul>
+          <v-autocomplete label="Все города" :items="store.state.addressData" variant="solo" density="comfortable"
+            v-model="addressSelected"/>
         </div>
       </div>
       <div class="form__short">
         <div class="form__item">
           <h1 class="item__title">Пол</h1>
-          <div class="item__dropdown" @click="toggleDropDown('gender')">
-            <p>{{ genderSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isGenderOpen">
-            <li class="point" v-for="gender in store.state.genderData" @click="selectedPoints('gender', gender)">{{ gender }}</li>
-          </ul>
+          <v-autocomplete label="Без разницы" :items="store.state.genderData" variant="solo" density="comfortable"
+            v-model="genderSelected"/>
         </div>
         <div class="form__item">
           <h1 class="item__title">Должность</h1>
-          <div class="item__dropdown" @click="toggleDropDown('position')">
-            <p>{{ positionSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isPositionOpen">
-            <li class="point" v-for="position in store.state.positionData" @click="selectedPoints('position', position)">{{ position }}</li>
-          </ul>
+          <v-autocomplete label="Все должности" :items="store.state.positionData" variant="solo" density="comfortable"
+            v-model="positionSelected"/>
         </div>
       </div>
       <div class="form__short">
         <div class="form__item">
           <h1 class="item__title">Документы</h1>
-          <div class="item__dropdown" @click="toggleDropDown('type')">
-            <p>{{ typeSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isTypeOpen">
-            <li class="point" v-for="type in store.state.typeData" @click="selectedPoints('type', type)">{{ type }}</li>
-          </ul>
+          <v-autocomplete label="Все документы" :items="store.state.typeData" variant="solo" density="comfortable"
+            v-model="typeSelected"/>
         </div>
         <div class="form__item">
           <h1 class="item__title">Тип договора</h1>
-          <div class="item__dropdown" @click="toggleDropDown('typeContract')">
-            <p>{{ typeContractSelected }}</p>
-            <img src="../assets/images/arrow.svg" class="title__arrow">
-          </div>
-          <ul class="dropdown__points" v-if="isTypeContractOpen">
-            <li class="point" v-for="typeContract in store.state.typeСontractData" @click="selectedPoints('typeContract', typeContract)">{{ typeContract }}</li>
-          </ul>
+          <v-autocomplete label="Все типы" :items="store.state.typeСontractData" variant="solo" density="comfortable"
+            v-model="typeContractSelected"/>
         </div>
       </div>
       <div class="form__item">
         <h1 class="item__title">Инн</h1>
-        <input class="item__input" placeholder="Введите инн:" type="number" v-model="userInn">
+        <v-text-field v-model="userInn" :rules="nameRules" label="Инн" variant="solo" density="comfortable" type="number" />
       </div>
     </div>
-    <button class="employee__add" :disabled="!pointsValidation" :class="{ 'employee__disabled': !pointsValidation }" @click="createUser">Добавить</button>
+    <button class="employee__add" :disabled="!pointsValidation" :class="{ 'employee__disabled': !pointsValidation }"
+      @click="createUser">Добавить</button>
   </div>
   <div class="employee__overlay" v-if="store.state.isModalOpen" @click="closeModal"></div>
 </template>
@@ -124,90 +96,12 @@ function updateDateBirth(event) {
   userDateBirth.value = event.target.value.slice(0, 10)
 }
 
-const isNationalityOpen = ref(false)
-const isAddressOpen = ref(false)
-const isGenderOpen = ref(false)
-const isPositionOpen = ref(false)
-const isTypeOpen = ref(false)
-const isTypeContractOpen = ref(false)
-function toggleDropDown(dropdown) {
-  if(dropdown === 'nationality') {
-    isNationalityOpen.value = !isNationalityOpen.value
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-    isTypeOpen.value = false
-    isTypeContractOpen.value = false
-    isAddressOpen.value = false
-  } else if(dropdown === 'gender') {
-    isGenderOpen.value = !isGenderOpen.value
-    isNationalityOpen.value = false
-    isPositionOpen.value = false
-    isTypeOpen.value = false
-    isTypeContractOpen.value = false
-    isAddressOpen.value = false
-  } else if(dropdown === 'position'){
-    isPositionOpen.value = !isPositionOpen.value
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isTypeOpen.value = false
-    isTypeContractOpen.value = false
-    isAddressOpen.value = false
-  } else if(dropdown === 'type') {
-    isTypeOpen.value = !isTypeOpen.value
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-    isTypeContractOpen.value = false
-    isAddressOpen.value = false
-  } else if(dropdown === 'typeContract') {
-    isTypeContractOpen.value = !isTypeContractOpen.value
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-    isTypeOpen.value = false
-    isAddressOpen.value = false
-  } else {
-    isAddressOpen.value = !isAddressOpen.value
-    isTypeContractOpen.value = false
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-    isTypeOpen.value = false
-  }
-}
-function closeDropdowns(e) {
-  if(!e.target.closest('.item__dropdown')) {
-    isNationalityOpen.value = false
-    isGenderOpen.value = false
-    isPositionOpen.value = false
-    isTypeOpen.value = false
-    isTypeContractOpen.value = false
-    isAddressOpen.value = false
-  }
-}
-
-const nationalitySelected = ref('Все страны')
-const addressSelected = ref('Все города')
-const genderSelected = ref('Без разницы')
-const positionSelected = ref('Все должности')
-const typeSelected = ref('Весь список')
-const typeContractSelected = ref('Весь список')
-function selectedPoints(dropdown, value) {
-  if(dropdown === 'nationality') {
-    nationalitySelected.value = value
-  } else if(dropdown === 'gender') {
-    genderSelected.value = value
-  } else if(dropdown === 'position') {
-    positionSelected.value = value
-  } else if(dropdown === 'type') {
-    typeSelected.value = value
-  } else if(dropdown === 'typeContract') {
-    typeContractSelected.value = value
-  } else {
-    addressSelected.value = value
-  }
-}
-
+const nationalitySelected = ref(null)
+const addressSelected = ref(null)
+const genderSelected = ref(null)
+const positionSelected = ref(null)
+const typeSelected = ref(null)
+const typeContractSelected = ref(null)
 const userSurname = ref('')
 const userName = ref('')
 const userPatronymic = ref('')
@@ -308,14 +202,13 @@ function closeModal() {
   .modal__form {
     display: flex;
     flex-direction: column;
-    gap: 20px;
+    gap: 10px;
     width: 100%;
     
     .form__item {
       display: flex;
       flex-direction: column;
       align-items: flex-start;
-      gap: 10px;
       width: 100%;
 
       .item__title {
@@ -324,6 +217,7 @@ function closeModal() {
         font-size: 15px;
         font-weight: 500;
         line-height: 120%;
+        margin-bottom: 10px;
       }
 
       .item__input {
@@ -335,13 +229,9 @@ function closeModal() {
         background: rgb(232, 241, 244);
         font-size: 15px;
         color: rgb(132, 144, 155);
+        width: 100%;
       }
 
-      input::-webkit-outer-spin-button,
-      input::-webkit-inner-spin-button {
-          -webkit-appearance: none;
-          margin: 0;
-      }
 
       .item__dropdown {
         cursor: pointer;

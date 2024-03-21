@@ -1,7 +1,7 @@
 <template>
   <div class="employee__list">
     <div class="list__search">
-      <input class="search" placeholder="Поиск сотрудника" v-model="searchItems">
+      <v-text-field v-model="searchItems" label="Поиск сотрудника" variant="solo" density="comfortable"/>
       <p class="search__prompt">Например: Иванов Иван</p>
     </div>
     <div class="list__items">
@@ -13,7 +13,7 @@
         <button class="buttons__filter blue" @click="setFilterType('Есть замечания')">Есть замечания</button>
         <button class="buttons__filter green" @click="setFilterType('Выполнено')">Выполнено</button>
       </div>
-      <EmployeeItem :searchedItems="visibleSearchedItems"/>
+      <EmployeeItem :searchedItems="visibleSearchedItems" />
     </div>
     <div class="list__show-more" v-if="showMoreButton">
       <button class="show-more" @click="showMoreEmployees">Показать еще</button>

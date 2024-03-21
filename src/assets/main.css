@@ -43,3 +43,14 @@
   --v-input-control-height: 0;
   --v-input-padding-top: 0;
 }
+input::-webkit-outer-spin-button,
+input::-webkit-inner-spin-button {
+  -webkit-appearance: none;
+  margin: 0;
+}
+.v-field {
+  background: rgb(232, 241, 244);
+}
+.v-input--horizontal {
+  width: 100%;
+}

@@ -20,7 +20,7 @@
       <div class="list__dropdown">
         <div class="dropdown__item" style="width: 100%;">
           <h1 class="item__title">Должность</h1>
-          <v-autocomplete label="Все должности " :items="store.state.positionData" variant="solo" density="comfortable"
+          <v-autocomplete label="Все должности" :items="store.state.positionData" variant="solo" density="comfortable"
             v-model="store.state.positionSelected" />
         </div>
       </div>
