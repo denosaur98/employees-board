@@ -54,3 +54,6 @@ input::-webkit-inner-spin-button {
 .v-input--horizontal {
   width: 100%;
 }
+.v-input__details {
+  display: none;
+}

@@ -6,11 +6,11 @@
         <v-text-field v-model="userSurname" :rules="nameRules" label="Фамилия" variant="solo" density="comfortable"/>
         <div class="form__short">
           <div class="form__item">
-            <v-text-field v-model="userName" :rules="nameRules" label="Имя" variant="solo" density="comfortable"/>
+            <v-text-field v-model="userName" :rules="nameRules" label="Имя" variant="solo" density="comfortable" />
           </div>
           <div class="form__item">
             <v-text-field v-model="userPatronymic" :rules="nameRules" label="Отчество" variant="solo"
-              density="comfortable"/>
+              density="comfortable" />
           </div>
         </div>
       </div>
@@ -22,41 +22,42 @@
         <div class="form__item">
           <h1 class="item__title">Гражданство</h1>
           <v-autocomplete label="Все страны" :items="store.state.countryData" variant="solo" density="comfortable"
-            v-model="nationalitySelected"/>
+            v-model="nationalitySelected" />
         </div>
         <div class="form__item">
           <h1 class="item__title">Город</h1>
           <v-autocomplete label="Все города" :items="store.state.addressData" variant="solo" density="comfortable"
-            v-model="addressSelected"/>
+            v-model="addressSelected" />
         </div>
       </div>
       <div class="form__short">
         <div class="form__item">
           <h1 class="item__title">Пол</h1>
           <v-autocomplete label="Без разницы" :items="store.state.genderData" variant="solo" density="comfortable"
-            v-model="genderSelected"/>
+            v-model="genderSelected" />
         </div>
         <div class="form__item">
           <h1 class="item__title">Должность</h1>
           <v-autocomplete label="Все должности" :items="store.state.positionData" variant="solo" density="comfortable"
-            v-model="positionSelected"/>
+            v-model="positionSelected" />
         </div>
       </div>
       <div class="form__short">
         <div class="form__item">
           <h1 class="item__title">Документы</h1>
           <v-autocomplete label="Все документы" :items="store.state.typeData" variant="solo" density="comfortable"
-            v-model="typeSelected"/>
+            v-model="typeSelected" />
         </div>
         <div class="form__item">
           <h1 class="item__title">Тип договора</h1>
           <v-autocomplete label="Все типы" :items="store.state.typeСontractData" variant="solo" density="comfortable"
-            v-model="typeContractSelected"/>
+            v-model="typeContractSelected" />
         </div>
       </div>
       <div class="form__item">
         <h1 class="item__title">Инн</h1>
-        <v-text-field v-model="userInn" :rules="nameRules" label="Инн" variant="solo" density="comfortable" type="number" />
+        <v-text-field v-model="userInn" :rules="nameRules" label="Инн" variant="solo" density="comfortable"
+          type="number" />
       </div>
     </div>
     <button class="employee__add" :disabled="!pointsValidation" :class="{ 'employee__disabled': !pointsValidation }"
@@ -202,7 +203,7 @@ function closeModal() {
   .modal__form {
     display: flex;
     flex-direction: column;
-    gap: 10px;
+    gap: 20px;
     width: 100%;
     
     .form__item {
@@ -210,6 +211,7 @@ function closeModal() {
       flex-direction: column;
       align-items: flex-start;
       width: 100%;
+      gap: 10px;
 
       .item__title {
         font-family: 'MontserratBold';
@@ -217,7 +219,6 @@ function closeModal() {
         font-size: 15px;
         font-weight: 500;
         line-height: 120%;
-        margin-bottom: 10px;
       }
 
       .item__input {
@@ -230,55 +231,7 @@ function closeModal() {
         font-size: 15px;
         color: rgb(132, 144, 155);
         width: 100%;
-      }
-
-
-      .item__dropdown {
-        cursor: pointer;
-        display: flex;
-        align-items: center;
-        justify-content: space-between;
-        width: 100%;
-        padding: 12px 16px;
-        border: none;
-        border-radius: 4px;
-        background: rgb(232, 241, 244);
-
-        p {
-          color: rgb(132, 144, 155);
-          font-size: 15px;
-          font-weight: 400;
-          line-height: 120%;
-        }
-
-        .dropdown__arrow {
-          width: 10px;
-          height: 10px;
-        }
-      }
-
-      .dropdown__points {
-        display: flex;
-        flex-direction: column;
-        width: 254px;
-        box-shadow: 1px 1px 10px 1px rgb(132, 144, 155);
-        background: #fff;
-        position: absolute;
-        list-style-type: none;
-        min-height: 29px;
-        margin-top: 75px;
-        border-radius: 5px;
-        overflow: hidden;
-
-        .point {
-          cursor: pointer;
-          width: 100%;
-          padding: 5px;
-
-          &:hover {
-            background: rgb(232, 241, 244);
-          }
-        }
+        box-shadow: 0px 2px 3px 0px rgb(132, 144, 155, 0.7);
       }
     }
 

@@ -66,7 +66,7 @@ function openModal() {
   background: #fff;
   border-radius: 10px;
   width: 587px;
-  height: 785px;
+  max-height: 690px;
 
   .filters__add {
     display: flex;
@@ -90,7 +90,7 @@ function openModal() {
       box-shadow: 0px 10px 20px 0px rgba(0, 182, 237, 0.2);
       background: rgb(0, 182, 237);
       width: 100%;
-      height: 68px;
+      height: 74px;
     }
   }
 
@@ -135,6 +135,7 @@ function openModal() {
           align-items: flex-start;
           border-bottom: 1px solid rgb(219, 228, 237);
           padding-bottom: 20px;
+          gap: 10px;
         }
       }
     }
