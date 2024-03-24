@@ -88,10 +88,6 @@ onMounted(() => {
   watch(userDateBirth, (newValue) => {
     mask.value = newValue
   })
-
-  let scrollPosition = 0
-  scrollPosition = window.pageYOffset || document.documentElement.scrollTop
-  document.body.style.overflow = 'hidden'
 })
 function updateDateBirth(event) {
   userDateBirth.value = event.target.value.slice(0, 10)
@@ -173,13 +169,10 @@ function createUser() {
   store.dispatch('createUser', user)
   store.state.isModalOpen = false
   document.body.style.removeProperty('overflow')
-  window.scrollTo(0, 0)
 }
 
 function closeModal() {
   store.state.isModalOpen = !store.state.isModalOpen
-  document.body.style.removeProperty('overflow')
-  window.scrollTo(0, scrollPosition)
 }
 </script>
 
