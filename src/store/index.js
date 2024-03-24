@@ -236,7 +236,7 @@ const store = createStore({
       commit("SET_FILTERED_EMPLOYEES", state.filteredEmployees);
     },
     filterEmployees({ commit, state }) {
-      let filteredEmployees = [...state.filteredEmployees]; // Используем отфильтрованный массив
+      let filteredEmployees = [...state.filteredEmployees];
       if (state.nationalitySelected !== null) {
         filteredEmployees = filteredEmployees.filter(
           (e) => e.country_full === state.nationalitySelected
